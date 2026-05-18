@@ -1,0 +1,29 @@
+db.desenvolvimento.insetMany([{nome: "José", idade: 25, nivel: 2},{nome: "Rodrigo", idade: 28, nivel: 1}, {nome: "Miguel", idade: 20, nivel: 4}]);
+
+db.desenvolvimento.updateOne({nome: "José"}, {$set{idade:26}});
+
+db.desenvolvimento.updateMany({nivel: {$lt:4}}, {$inc: {nivel:1}});
+
+db.desenvolvimento.updateOne({nome: "Miguel"}, {$push: {interesses: "MongoDB"}});
+
+db.desenvolvimento.updateOne({nome: "Maria"}, {$push: {interesses: {$each: ["Node.js", "Java", "React"]}}});
+
+db.desenvolvimento.updateOne({nome: "Miguel"}, {$pop: {interesses: 1}});
+
+db.desenvolvimento.updateOne({nome: "Maria"}, {$pop: {interesses: -1}});
+
+db.desenvolvimento.updateOne({nome: "Maria"}, {$pull: {interesses: "React"}});
+
+db.desenvolvimento.find
+
+const documento = db.desenvolvimento.findOne({nome: "Miguel"});
+
+print(documento);
+
+const documento2 = db.desenvolvimento.findOne({nome: "Maria"});
+
+print(documento2);
+
+const resultado = db.desenvolvimento.aggregate([{$group: {_id: null, mediaIdade: {$avg: "$idade"}}}]).toArray();
+
+print ("Média das idades:", resultado[0].mediaIdade);
